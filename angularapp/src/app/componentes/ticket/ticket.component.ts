@@ -1,85 +1,47 @@
 import { Component } from '@angular/core';
 import { TicketService } from '../../ticket.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
-interface Evento {
-  id: number;
-  nombre: string;
-  horarios: string[];
-}
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
-export class TicketComponent {
-  formulario: FormGroup | undefined;
 
-  eventos: Evento[] = [
-    { id: 1, nombre: 'Concierto', horarios: ['18:00', '20:00', '22:00'] },
-    { id: 2, nombre: 'Feria de Arte', horarios: ['10:00', '12:00', '14:00'] },
-    { id: 3, nombre: 'Festival de Cine', horarios: ['15:00', '17:00', '19:00'] }
+export class TicketComponent {
+
+  eventos: string[] = [
+    'Concierto',
+    'Feria de Arte',
+    'Festival de Cine',
   ];
 
-  horariosDisponibles: string[] = [];
+  horarios: string[] = [
+    '08:00', '09:00', '10:00', '11:00',
+    '12:00', '13:00', '14:00', '15:00',
+    '16:00', '17:00', '18:00', '19:00',
+    '20:00', '21:00', '22:00'
+  ];
 
-  constructor(private ticketService: TicketService) {}
-
-
-  seleccionarEvento(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    if (target && target.value) {
-      // Convertir el id del evento a un número
-      const idEvento = parseInt(target.value);
-
-      // Asignar el ID del evento seleccionado a la variable eventoIdSeleccionado
-      this.eventoIdSeleccionado = idEvento;
-
-      // Buscar el evento por su id
-      const eventoEncontrado = this.eventos.find(e => e.id === idEvento);
-      if (eventoEncontrado) {
-        this.horariosDisponibles = eventoEncontrado.horarios;
-      }
-    }
+  constructor() {
   }
 
-  comprarTicket(formulario: any) {
-    console.log(this.correo);
-    console.log(this.eventoIdSeleccionado);
-    console.log(this.fecha);
-    console.log(this.horarioSeleccionado);
-    if (formulario.valid) {
-      // Verificar si se ha seleccionado un evento
-      if (this.eventoIdSeleccionado) {
-        const idEvento = this.eventoIdSeleccionado.toString();
+  formTicket = new FormGroup({
+    correo: new FormControl('', Validators.required),
+    evento: new FormControl('', Validators.required),
+    fecha: new FormControl('', Validators.required),
+    horario: new FormControl('', Validators.required)
+  });
+   
+  comprarTicket(){
 
-        console.log(this.correo);
-        console.log(this.eventoIdSeleccionado);
-        console.log(this.fecha);
-        console.log(this.horarioSeleccionado);
-
-        // Llamar al servicio para comprar el ticket
-        this.ticketService.comprarTicket(this.correo, idEvento, this.fecha, this.horarioSeleccionado)
-          .subscribe(
-            () => {
-              alert('¡Ticket comprado exitosamente! Se ha enviado la confirmación por correo electrónico.');
-              // Limpiar el formulario después de la compra exitosa
-              formulario.reset();
-            },
-            (error) => {
-              console.error('Error al comprar el ticket:', error);
-              alert('Ha ocurrido un error al comprar el ticket. Por favor, inténtalo de nuevo.');
-            }
-          );
-      } else {
-        console.log(this.correo);
-        console.log(this.eventoIdSeleccionado);
-        console.log(this.fecha);
-        console.log(this.horarioSeleccionado);
-        console.error('No se ha seleccionado un evento.');
-        // Manejar el caso en que no se ha seleccionado un evento
-      }
+    var data = {
+      "correo": this.formTicket.value.correo ?? '',
+      "evento": this.formTicket.value.evento ?? '',
+      "fecha": this.formTicket.value.fecha ?? '',
+      "hora": this.formTicket.value.horario ?? '',
     }
+
+    console.log(data);
   }
 }
