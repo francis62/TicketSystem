@@ -5,12 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TicketComponent } from './componentes/ticket/ticket.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './componentes/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TicketComponent
+    TicketComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

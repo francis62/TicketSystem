@@ -1,29 +1,27 @@
-<div class="container" style="background-color:white;">
-  <h2>Formulario de Compra de Tickets</h2>
+<div class="container mt-6 bg-dark">
+  <h2 class="text-silver">Formulario de Compra de Tickets</h2>
 
   <form [formGroup]="formTicket" (submit)="comprarTicket()">
-
     <div class="form-group">
-      <label for="correo">Correo Electrónico:</label>
+      <label class="text-silver" for="correo">Correo Electrónico:</label>
       <input type="email" class="form-control" formControlName="correo">
     </div>
-
     <div class="form-group">
-      <label for="evento">Evento:</label>
+      <label class="text-silver" for="evento">Evento:</label>
       <select class="form-control" formControlName="evento">
         <option [value]="item" *ngFor="let item of eventos">{{item}}</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="fecha">Fecha:</label>
+      <label class="text-silver"for="fecha">Fecha:</label>
       <input type="date" class="form-control" formControlName="fecha">
     </div>
 
     <div class="form-group">
-      <label for="horario">Horario:</label>
+      <label class="text-silver" for="horario">Horario:</label>
       <select class="form-control" formControlName="horario">
-        <option [value]="item" *ngFor="let item of horarios">{{item}}></option> 
+        <option [value]="item" *ngFor="let item of horarios">{{item}}</option> 
       </select>
     </div>
 
