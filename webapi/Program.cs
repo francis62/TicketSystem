@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using webapi;
 using webapi.Service.IServices;
 using webapi.Service.Services;
+using webapi.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,7 @@ builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration;
 
 builder.Services.Configure<ConfiguracionCorreo>(configuration.GetSection("Correo"));
-
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MegaraConnection")));
 
 
 builder.Services.AddScoped<IEventoRepository,EventoRepository>();
