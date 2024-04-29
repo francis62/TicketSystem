@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using webapi.Models;
+using webapi.Data.Models;
 using webapi.Service.IServices;
 
 namespace webapi.Controllers

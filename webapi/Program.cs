@@ -17,8 +17,12 @@ var configuration = builder.Configuration;
 
 builder.Services.Configure<ConfiguracionCorreo>(configuration.GetSection("Correo"));
 
+
+
 builder.Services.AddScoped<IEventoRepository,EventoRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+
 
 builder.Services.AddScoped<ITicketService,TicketService>();
 builder.Services.AddScoped<IReservaService, ReservaService>();

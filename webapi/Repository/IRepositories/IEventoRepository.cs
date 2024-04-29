@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using webapi.Models;
+using webapi.Data.Models;
+using webapi.Repository.IRepositories;
 
-namespace webapi.Repository.IRepositories
-{
-    public interface IEventoRepository
-    {
-        Task<IEnumerable<Evento>> ObtenerEventosAsync();
-        Task<Evento> ObtenerEventoPorIdAsync(int id);
-    }
-}
+
+public interface IEventoRepository : IGenericRepository<Evento> { }

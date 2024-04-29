@@ -1,6 +1,6 @@
 ﻿using webapi.Repository.IRepositories;
-using webapi.Models;
 using webapi.Service.IServices;
+using webapi.Data.Models;
 
 namespace webapi.Service.Services
 {

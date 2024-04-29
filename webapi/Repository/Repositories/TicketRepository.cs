@@ -1,32 +1,12 @@
-﻿using webapi.Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using webapi.Models;
+﻿using System.Text.Json;
+using webapi.Data.Context;
+using webapi.Data.Models;
+using webapi.Repository.Repositories;
 
 namespace webapi.Repository.IRepositories
 {
-    public class TicketRepository : ITicketRepository
+    public class TicketRepository : GenericRepository<Ticket>, ITicketRepository
     {
-        private readonly string ticketsFilePath = "tickets.json";
-
-        public async Task GuardarTicketAsync(Ticket ticket)
-        {
-            var tickets = new List<Ticket>();
-
-            if (File.Exists(ticketsFilePath))
-            {
-                var ticketsJson = await File.ReadAllTextAsync(ticketsFilePath);
-                tickets = JsonSerializer.Deserialize<List<Ticket>>(ticketsJson);
-            }
-
-            tickets.Add(ticket);
-            var newTicketsJson = JsonSerializer.Serialize(tickets);
-            await File.WriteAllTextAsync(ticketsFilePath, newTicketsJson);
-        }
+        public TicketRepository(Context dbContext) : base(dbContext) { }
     }
 }

@@ -1,10 +1,9 @@
-﻿using webapi.Models;
+﻿using webapi.Data.Models;
 
 namespace webapi.Service.IServices
 {
     public interface IEventoService
     {
-        Task<IEnumerable<Evento>> ObtenerEventosAsync();
-        Task<Evento> ObtenerEventoPorIdAsync(int id);
+        Task<List<DateTime>> GetHorasDisponibles(int idEvento);
     }
 }

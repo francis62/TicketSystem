@@ -1,28 +1,12 @@
-﻿using webapi.Repository.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using webapi.Models;
+﻿using System;
+using webapi.Data.Context;
+using webapi.Data.Models;
+using webapi.Repository.Repositories;
 
-namespace webapi.Repository.Repositories
+public class EventoRepository : GenericRepository<Evento>, IEventoRepository
 {
-    public class EventoRepository : IEventoRepository
+    public EventoRepository(Context dbContext) : base(dbContext)
     {
-        private readonly string eventosFilePath = "eventos.json";
-
-        public async Task<IEnumerable<Evento>> ObtenerEventosAsync()
-        {
-            var eventosJson = await File.ReadAllTextAsync(eventosFilePath);
-            var eventos = JsonSerializer.Deserialize<IEnumerable<Evento>>(eventosJson);
-            return eventos;
-        }
-        public async Task<Evento> ObtenerEventoPorIdAsync(int id)
-        {
-            var eventos = await ObtenerEventosAsync();
-            return eventos.FirstOrDefault(e => e.Id == id);
-        }
     }
 }
+

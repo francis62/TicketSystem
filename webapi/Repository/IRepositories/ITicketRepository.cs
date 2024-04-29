@@ -6,12 +6,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using webapi.Models;
+using webapi.Data.Models;
 
 namespace webapi.Repository.IRepositories
 {
-    public interface ITicketRepository
-    {
-        Task GuardarTicketAsync(Ticket ticket);
-    }
+    public interface ITicketRepository: IGenericRepository<Ticket> { }
 }
