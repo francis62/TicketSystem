@@ -21,15 +21,14 @@ builder.Services.Configure<ConfiguracionCorreo>(configuration.GetSection("Correo
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MegaraConnection")));
 
 
-builder.Services.AddScoped<IEventoRepository,EventoRepository>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 
 
-builder.Services.AddScoped<ITicketService,TicketService>();
-builder.Services.AddScoped<IReservaService, ReservaService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IEventoService, EventoService>();
-builder.Services.AddScoped<ICorreoService,CorreoService>();
+builder.Services.AddScoped<ICorreoService, CorreoService>();
 
 var app = builder.Build();
 
