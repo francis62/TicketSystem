@@ -16,6 +16,16 @@ namespace webapi.Service.Services
             _ticketService = ticketService;
         }
 
+        public async Task<Evento?> GetEvento(int idEvento)
+        {
+            return await _eventoRepository.GetByIdAsync(idEvento);
+        }
+
+        public async Task<List<Evento>> GetEventos()
+        {
+            return await _eventoRepository.GetAllAsync();
+        }
+
         public async Task<List<DateTime>> GetHorasDisponibles(int idEvento)
         {
             var evento = await _eventoRepository.GetByIdAsync(idEvento);

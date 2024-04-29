@@ -10,25 +10,24 @@ namespace webapi.Controllers
     public class EventosController : ControllerBase
     {
         private readonly IEventoService _eventoService;
-        private readonly IReservaService _reservaService;
-        private readonly string ticketsFilePath = "tickets.json";
+        private readonly ITicketService _ticketService;
 
-        public EventosController(IEventoService eventoService, IReservaService reservaService)
+        public EventosController(IEventoService eventoService, ITicketService ticketService)
         {
             _eventoService = eventoService;
-            _reservaService = reservaService;
+            _ticketService = ticketService;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Evento>> GetEventos()
         {
-            return await _eventoService.ObtenerEventosAsync();
+            return await _eventoService.GetEventos();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Evento>> GetEvento(int id)
         {
-            var evento = await _eventoService.ObtenerEventoPorIdAsync(id);
+            var evento = await _eventoService.GetEvento(id);
 
             if (evento == null)
             {
@@ -38,35 +37,25 @@ namespace webapi.Controllers
             return evento;
         }
 
+        [HttpGet("HorasDisponibles/{id}")]
+        public async Task<IEnumerable<DateTime>> GetHorasDisponibles(int id)
+        {
+            var horasDisponibles = await _eventoService.GetHorasDisponibles(id);
+
+            return horasDisponibles;
+        }
+
         [HttpPost("reservar")]
-        public async Task<IActionResult> ReservarEntrada([FromBody] Reserva reserva)
+        public async Task<IActionResult> ReservarEntrada(Ticket ticket)
         {
             try
             {
-                await GuardarTicketAsync(reserva);
-                return Ok("Reserva confirmada. Se generó el ticket correctamente.");
+                await _ticketService.GenerarTicketAsync(ticket);
+                return Ok(ticket);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error al procesar la reserva: {ex.Message}");
-            }
-        }
-
-        private async Task GuardarTicketAsync(Reserva reserva)
-        {
-            if (!System.IO.File.Exists(ticketsFilePath))
-            {
-                var tickets = new List<Reserva> { reserva };
-                var json = JsonSerializer.Serialize(tickets);
-                await System.IO.File.WriteAllTextAsync(ticketsFilePath, json);
-            }
-            else
-            {
-                var existingJson = await System.IO.File.ReadAllTextAsync(ticketsFilePath);
-                var tickets = JsonSerializer.Deserialize<List<Reserva>>(existingJson);
-                tickets.Add(reserva);
-                var updatedJson = JsonSerializer.Serialize(tickets);
-                await System.IO.File.WriteAllTextAsync(ticketsFilePath, updatedJson);
             }
         }
     }
