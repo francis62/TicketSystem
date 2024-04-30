@@ -8,12 +8,15 @@ namespace webapi.Service.Services
     public class EventoService : IEventoService
     {
         private readonly IEventoRepository _eventoRepository;
-        private readonly ITicketService _ticketService;
+        //private readonly ITicketService _ticketService;
+        private readonly ITicketRepository _ticketRepository;
+        
 
-        public EventoService(IEventoRepository eventoRepository, ITicketService ticketService)
+        public EventoService(IEventoRepository eventoRepository,  ITicketRepository ticketRepository)
         {
             _eventoRepository = eventoRepository;
-            _ticketService = ticketService;
+            //_ticketService = ticketService;
+            _ticketRepository = ticketRepository;
         }
 
         public async Task<Evento?> GetEvento(int idEvento)
@@ -24,6 +27,10 @@ namespace webapi.Service.Services
         public async Task<List<Evento>> GetEventos()
         {
             return await _eventoRepository.GetAllAsync();
+        }
+        private async Task<List<Ticket>> GetTicketAllAsync()
+        {
+            return await _ticketRepository.GetAllAsync();
         }
 
         public async Task<List<DateTime>> GetHorasDisponibles(int idEvento)
@@ -38,7 +45,7 @@ namespace webapi.Service.Services
             List<DateTime> horasDelEvento = GenerarHorasEntre(evento.HoraInicio, evento.HoraFinalizacion);
             List<DateTime> horasDisponibles = [];
 
-            var tickets = await _ticketService.GetAllTicketsAsync();
+            var tickets = await this.GetTicketAllAsync();
 
             foreach (DateTime hora in horasDelEvento)
             {

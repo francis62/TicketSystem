@@ -7,6 +7,7 @@ public class EventoRepository : GenericRepository<Evento>, IEventoRepository
 {
     public EventoRepository(Context dbContext) : base(dbContext)
     {
+
     }
 }
 

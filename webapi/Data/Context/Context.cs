@@ -3,9 +3,9 @@ using webapi.Data.Models;
 
 namespace webapi.Data.Context
 {
-    public class Context: DbContext
+    public class Context : DbContext
     {
-        public Context(DbContextOptions<Context> options): base(options) { }
+        public Context(DbContextOptions<Context> options) : base(options) { }
 
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
