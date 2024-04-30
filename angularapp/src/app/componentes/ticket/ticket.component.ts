@@ -29,7 +29,6 @@ export class TicketComponent {
   formTicket = new FormGroup({
     correo: new FormControl('', Validators.required),
     evento: new FormControl('', Validators.required),
-    fecha: new FormControl('', Validators.required),
     horario: new FormControl('', Validators.required)
   });
    
@@ -38,7 +37,6 @@ export class TicketComponent {
     var data = {
       "correo": this.formTicket.value.correo ?? '',
       "evento": this.formTicket.value.evento ?? '',
-      "fecha": this.formTicket.value.fecha ?? '',
       "hora": this.formTicket.value.horario ?? '',
     }
 

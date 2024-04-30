@@ -6,24 +6,33 @@
       <label class="text-silver" for="correo">Correo Electrónico:</label>
       <input type="email" class="form-control" formControlName="correo">
     </div>
+    
     <div class="form-group">
       <label class="text-silver" for="evento">Evento:</label>
-      <select class="form-control" formControlName="evento">
-        <option [value]="item" *ngFor="let item of eventos">{{item}}</option>
-      </select>
+      <div class="dropdown"> <!-- Utilizamos la clase 'dropdown' de Bootstrap -->
+        <select class="form-control dropdown-toggle" formControlName="evento" id="evento" data-toggle="dropdown">
+          <option *ngFor="let item of eventos">{{item}}</option>
+        </select>
+        <!-- Agregamos un ícono para indicar el dropdown -->
+        <div class="dropdown-menu"> <!-- Clase 'dropdown-menu' para el menú desplegable -->
+          <a class="dropdown-item" *ngFor="let item of eventos">{{item}}</a>
+        </div>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label class="text-silver"for="fecha">Fecha:</label>
-      <input type="date" class="form-control" formControlName="fecha">
-    </div>
-
+    
     <div class="form-group">
       <label class="text-silver" for="horario">Horario:</label>
-      <select class="form-control" formControlName="horario">
-        <option [value]="item" *ngFor="let item of horarios">{{item}}</option> 
-      </select>
+      <div class="dropdown"> <!-- Utilizamos la clase 'dropdown' de Bootstrap -->
+        <select class="form-control dropdown-toggle" formControlName="horario" id="horario" data-toggle="dropdown">
+          <option *ngFor="let item of horarios">{{item}}</option>
+        </select>
+        <!-- Agregamos un ícono para indicar el dropdown -->
+        <div class="dropdown-menu"> <!-- Clase 'dropdown-menu' para el menú desplegable -->
+          <a class="dropdown-item" *ngFor="let item of horarios">{{item}}</a>
+        </div>
+      </div>
     </div>
+    
 
     <button type="submit" class="btn btn-primary">Comprar Ticket</button>
 
