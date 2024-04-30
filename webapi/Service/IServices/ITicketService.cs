@@ -4,7 +4,7 @@ namespace webapi.Service.IServices
 {
     public interface ITicketService
     {
-        Task GenerarTicketAsync(Ticket ticket);
+        Task<int> GenerarTicketAsync(Ticket ticket);
         Task<List<Ticket>> GetAllTicketsAsync();
     }
 }

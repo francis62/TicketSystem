@@ -10,5 +10,8 @@ using webapi.Data.Models;
 
 namespace webapi.Repository.IRepositories
 {
-    public interface ITicketRepository: IGenericRepository<Ticket> { }
+    public interface ITicketRepository: IGenericRepository<Ticket> 
+    {
+        Task<int> CreateAsync(Ticket ticket);
+    }
 }

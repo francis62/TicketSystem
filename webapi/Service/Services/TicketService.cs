@@ -15,14 +15,14 @@ namespace webapi.Service.Services
             _eventoService = eventoService;
         }
 
-        public async Task GenerarTicketAsync(Ticket ticket)
+        public async Task<int> GenerarTicketAsync(Ticket ticket)
         {
 
-            List<DateTime> horasDisponibles = await _eventoService.GetHorasDisponibles(ticket.Id);
+            List<DateTime> horasDisponibles = await _eventoService.GetHorasDisponibles(ticket.IdEvento);
 
             if (horasDisponibles.Contains(ticket.Hora))
             {
-                await _ticketRepository.CreateAsync(ticket);
+                return await _ticketRepository.CreateAsync(ticket);
             }
             else
             {
