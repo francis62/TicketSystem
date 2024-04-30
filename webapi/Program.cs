@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration;
 
 builder.Services.Configure<ConfiguracionCorreo>(configuration.GetSection("Correo"));
-builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MegaraConnection")));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TicketConnection")));
 
 
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
